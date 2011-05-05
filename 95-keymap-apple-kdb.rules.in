@@ -1,0 +1,25 @@
+# Apple Aluminium Keyboards keymap configuration rules
+# (c) 2009-2011 Damien Ciabrini - damien.ciabrini@gmail.com
+
+ACTION!="add|change", GOTO="apple_kbd_end"
+SUBSYSTEM!="input", GOTO="apple_kbd_end"
+KERNEL!="event[0-9]*", GOTO="apple_kbd_end"
+
+ENV{ID_VENDOR_ID}!="05ac", GOTO="apple_kbd_end"
+ENV{ID_INPUT_KEYBOARD}!=1, GOTO="apple_kbd_end"
+
+ENV{ID_MODEL_ID}!="022[0-2]", GOTO="apple_kbd_end"
+ENV{ID_MODEL_ID}=="0220", ENV{XKBMODEL}="applealu_ansi"
+ENV{ID_MODEL_ID}=="0221", ENV{XKBMODEL}="applealu_iso"
+ENV{ID_MODEL_ID}=="0222", ENV{XKBMODEL}="applealu_jis"
+
+ACTION=="add|change", IMPORT{program}="/bin/grep ^apple_kbd_ @CONFIGDIR@/apple-kbd"
+
+# commented until the fn key is known by udev
+# ENV{apple_kbd_ALUKBD_FN_AS_INS}!="1", RUN+="keymap $env{DEVNAME} 0xff0003 464"
+ENV{apple_kbd_ALUKBD_FN_AS_INS}=="1", RUN+="keymap $env{DEVNAME} 0xff0003 insert"
+ENV{apple_kbd_ALUKBD_XKB_PC_KEYS}=="1", ENV{XKBOPTIONS}="apple:alupckeys,$env{XKBOPTIONS}"
+ENV{apple_kbd_ALUKBD_XKB_PC_KEYS}=="1", IMPORT{program}="/bin/sh -c 'echo XKBOPTIONS=$${XKBOPTIONS%,}'"
+ENV{apple_kbd_ALUKBD_KMOD_FNMODE}=="[012]", RUN+="/bin/sh -c 'echo $env{apple_kbd_ALUKBD_KMOD_FNMODE} > /sys/module/hid_apple/parameters/fnmode'"
+
+LABEL="apple_kbd_end"

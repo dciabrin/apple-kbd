@@ -1,0 +1,5 @@
+Version 0.1:
+  * Initial release:
+	. XKB auto-settings
+	. Key remapping
+	. Fxx key default behaviour (multimedia vs functions)

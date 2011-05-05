@@ -1,0 +1,16 @@
+# Apple Aluminium Keyboards configuration
+# (c) 2009-2011 Damien Ciabrini - damien.ciabrini@gmail.com
+
+# Emulate PC keys by default (Print, Scroll Lock, Pause, Num Lock)
+# Keyboard configuration applets (e.g., GNOME) inherit this setting
+apple_kbd_ALUKBD_XKB_PC_KEYS=1
+
+# Make the "fn" key generate an "Insert" scancode!
+# Linux-specific configuration, relies on evdev remapping
+apple_kbd_ALUKBD_FN_AS_INS=1
+
+# Choose the default behaviour of keys F1 to F12
+# 1: multimedia keys
+# 2: function keys
+# Linux-specific configuration, relies on kernel module hid_apple
+apple_kbd_ALUKBD_KMOD_FNMODE=2
