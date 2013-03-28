@@ -13,10 +13,13 @@ KERNEL!="event[0-9]*", GOTO="apple_kbd_end"
 ENV{ID_VENDOR_ID}!="05ac", GOTO="apple_kbd_end"
 ENV{ID_INPUT_KEYBOARD}!=1, GOTO="apple_kbd_end"
 
-ENV{ID_MODEL_ID}!="022[0-2]", GOTO="apple_kbd_end"
+ENV{ID_MODEL_ID}!="022[0-2]|024f|025[0-1]", GOTO="apple_kbd_end"
 ENV{ID_MODEL_ID}=="0220", ENV{XKBMODEL}="applealu_ansi"
 ENV{ID_MODEL_ID}=="0221", ENV{XKBMODEL}="applealu_iso"
 ENV{ID_MODEL_ID}=="0222", ENV{XKBMODEL}="applealu_jis"
+ENV{ID_MODEL_ID}=="024F", ENV{XKBMODEL}="applealu_ansi"
+ENV{ID_MODEL_ID}=="0250", ENV{XKBMODEL}="applealu_iso"
+ENV{ID_MODEL_ID}=="0251", ENV{XKBMODEL}="applealu_jis"
 
 ACTION=="add|change", IMPORT{program}="/bin/grep ^apple_kbd_ @CONFIGDIR@/apple-kbd"
 
